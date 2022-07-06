@@ -2,6 +2,8 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="main.css" />
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 		<style>
 		body {
 			background-color: #EEEFEE;
@@ -11,11 +13,50 @@
 		</style>
 	</head>
 	<body>
-		<h1>SOME2 Entry by Jansen Henschel</h1>
-		<h2>Continuity and Differentiability</h2>
+		<h1>SOME2 Entry by (fillinnamehere)</h1>
+		<h2>Intuition and Rigor</h2>
 		<p>When you take a calculus course,
 			you inevitably come across the concepts of "continuity" and "differentiability."</p>
 		<p>The definition of a continuous function is vague. You're essentially told that
 			a continuous function "can be drawn without your pencil leaving the paper, so to speak."</p>
+		<p>Every example of a continuous function looks like this:</p>
+		<p>And any example of a discontinuous function looks like this:</p>
+		<p>This was the viewpoint of mathematicians for decades. Calculus didn't need to be rigorous;
+			it just needed to make intuitive sense.</p>
+		<p>But this mindset would shift when Joseph Fourier introduced his famous Fourier series.
+			These were infinite sums of trigonometric functions that Fourier used to approximate
+			any periodic function. The reason Fourier needed these infinite series was because
+			he was trying to solve heat equations from physics.</p>
+		<p>When Fourier series were unleashed onto the mathematical scene, people began to worry
+			about the lack of rigor that calculus had possessed up till this point. This would
+			lead to the rise of precise, rigorous defintions for mathematics as a whole.</p>
+		<p>But does any of this extra rigor actually help illustrate facts about calculus
+			that wouldn't be obvious through a purely intuitive lens?</p>
+		<p>This is the question that we're going to answer today, through the perspective of
+			continuous functions and differentiable functions.</p>
+		<h2>Continuity and Differentiability</h2>
+		<p>(fill in explanation of differentiability here)
+			The function \( |x| \) is not differentiable at \( x=0 \).</p>
+		<p>So certainly, we are able to find continuous functions that are non-differentiable at
+			certain points. But how far can we go? Is it true that a continuous function is always
+			differentiable at an infinite number of points? Contrary to the intuitions of most
+			mathematicians at the time, the answer is no.
+		<p>In fact, in 1872, Karl Weierstrass would prove that there existed continuous functions
+			that were <strong>nowhere-differentiable</strong> - or in other words, they were not
+			differentiable at any point.</p>
+		<h2>Constructing a Continuous, Nowhere-Differentiable Function</h2>
+		<p>Does there exist a continuous function that is not differentiable anywhere?
+			And if so, what does it look like?</p>
+		<p>Let's start with two examples of functions that are not differentiable at \( x = 0 \).</p>
+		<p>Take a look at the function \( \sin(1/x) \). You can see that this function oscillates infinitely
+			at the point \( x=0 \). Note also that because of this oscillation \( \sin(1/x) \) is not defined at \( x=0 \).</p>
+		<p>Now let's define the function \( f(x) \) such that \( f(x) = x\sin(1/x) \) at \( x \neq 0 \) and \( f(x) = 0 \) at \( x = 0 \).
+			When graphed, it looks like this:</p>
+		<p>As you zoom in on this function at \( x=0 \), it oscillates infinitely just the same as before,
+			but we now see that that these oscillations become smaller and smaller as \( x -> 0 \).</p>
+		<p>In other words, \( x\sin(1/x) \) actually tends towards a defined value as \( x -> 0 \).</p>
+		<p>The idea is this: we construct a function \( g(x) \) that oscillates infinitely at every point,
+			but we have the oscillations shrink at just the right speed so that \( g(x) \) is defined and continuous at every point.</p>
+		<iframe src="https://www.desmos.com/calculator/pla3ufqqdy"></iframe>
 	</body>
 </html>
