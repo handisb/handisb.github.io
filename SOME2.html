@@ -57,6 +57,16 @@
 		<p>In other words, \( x\sin(1/x) \) actually tends towards a defined value as \( x -> 0 \).</p>
 		<p>The idea is this: we construct a function \( g(x) \) that oscillates infinitely at every point,
 			but we have the oscillations shrink at just the right speed so that \( g(x) \) is defined and continuous at every point.</p>
+		<p>So how do we go about doing this? Well, the answer is rather simple. We use an infinite sum
+			of oscillating functions.</p>
+		<p>There are several oscillating functions we could use to construct our function,
+			some with proofs easier than others.</p>
+		<p>To simplify the argument, consider the periodic function \( h(x) \) defined to be \( |x| \)
+			over the interval \( [-1, 1] \):</p>
+		<p>This is called the <strong>triangle wave function</strong>.</p>
+		<p>Notice that the function \( h_n(x) = \frac{1}{2^n}h(2^nx) \) is essentially a scaled down version of \( h(x) \):</p>
+		<p>Now consider the function \( g(x) \) defined to be \( \sum_{n=0}^{\infty} h_n(x) = \sum_{n=0}^{\infty} \frac{1}{2^n}h(2^nx) \).</p>
+		<p>I claim that \( g(x) \) is defined for all x, continuous for all x, and non-differentiable for all x.</p>
 		<iframe src="https://www.desmos.com/calculator/pla3ufqqdy"></iframe>
 	</body>
 </html>
