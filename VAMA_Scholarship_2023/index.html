@@ -457,25 +457,25 @@
             </div>
             <div class="slide">
                 <h1>Textbox Animation - Animation 218</h1>
-                <video width="80%" height="80%" controls>
+                <video width="80%" height="80%" controls muted>
                     <source src="./assets/HenschelJansen_OutOfTheBoxAssignment_v8_2.mp4" type="video/mp4">
                 </video>
             </div>
             <div class="slide">
                 <h1>Egyptian Tomb - GAD 103</h1>
-                <video width="80%" height="80%" controls>
+                <video width="80%" height="80%" controls muted>
                     <source src="./assets/Egyptian Tomb w_ Sarcophagus Cinematic.mp4" type="video/mp4">
                 </video>
             </div>
             <div class="slide">
                 <h1>Stop Motion Cards - Animation 218</h1>
-                <video width="80%" height="80%" controls>
+                <video width="80%" height="80%" controls muted>
                     <source src="./assets/HenschelJansen_StopMotionAssignment_Cropped.mp4" type="video/mp4">
                 </video>
             </div>
             <div class="slide">
                 <h1>Magic Mac Intro - Art 648</h1>
-                <video width="80%" height="80%" controls>
+                <video width="80%" height="80%" controls muted>
                     <source src="./assets/JansenHenschel_TitleSequence_v5_1.mp4" type="video/mp4">
                 </video>
             </div>
@@ -483,21 +483,38 @@
         <button id="right" type="button">Right</button>
         <script>
             let transitioning = false;
+            let playing = false;
             let slides = document.querySelectorAll(".slide");
             let slideIndex = 0;
             let contentArea = document.getElementById("contentArea");
             let leftButton = document.getElementById("left");
             let rightButton = document.getElementById("right");
 
+            function setPlaying() {
+                playing = true;
+            }
+            function setNotPlaying() {
+                playing = false;
+            }
+
             contentArea.addEventListener("transitionend", function(e) {
                 transitioning = false;
                 if (slides[slideIndex].querySelector("video")) {
-                    slides[slideIndex].querySelector("video").play();
+                    let video = slides[slideIndex].querySelector("video");
+                    video.currentTime = 0;
+                    video.play();
+                    playing = true;
                 }
             });
 
             function updateSlide(newSlideIndex) {
                 contentArea.style.transform = "translateX(-"+newSlideIndex*100+"%)";
+                if (slides[newSlideIndex].querySelector("video")) {
+                    let video = slides[newSlideIndex].querySelector("video");
+                    video.addEventListener("play", setPlaying);
+                    video.addEventListener("pause", setNotPlaying);
+                    video.addEventListener("ended", setNotPlaying);
+                }
 
                 if (newSlideIndex <= 0) {
                     leftButton.classList.add("invisible");
@@ -515,9 +532,14 @@
                 if (transitioning) return;
                 if (slideIndex > 0) {
                     if (slides[slideIndex].querySelector("video")) {
-                        slides[slideIndex].querySelector("video").pause();
+                        let video = slides[slideIndex].querySelector("video");
+                        video.pause();
+                        video.removeEventListener("play", setPlaying);
+                        video.removeEventListener("pause", setNotPlaying);
+                        video.removeEventListener("ended", setNotPlaying);
                     }
                     transitioning = true;
+                    playing = false;
                     updateSlide(--slideIndex);
                 }
             });
@@ -525,15 +547,20 @@
                 if (transitioning) return;
                 if (slideIndex < slides.length-1) {
                     if (slides[slideIndex].querySelector("video")) {
-                        slides[slideIndex].querySelector("video").pause();
+                        let video = slides[slideIndex].querySelector("video");
+                        video.pause();
+                        video.removeEventListener("play", setPlaying);
+                        video.removeEventListener("pause", setNotPlaying);
+                        video.removeEventListener("ended", setNotPlaying);
                     }
                     transitioning = true;
+                    playing = false;
                     updateSlide(++slideIndex);
                 }
             });
 
             setInterval(function(e) {
-                if (transitioning) return;
+                if (transitioning || playing) return;
                 if (slideIndex < slides.length-1) {
                     transitioning = true;
                     if (slides[slideIndex].querySelector("video")) {
@@ -548,7 +575,7 @@
                     transitioning = true;
                     updateSlide(slideIndex);
                 }
-            }, 15000);
+            }, 5000);
         </script>
     </body>
 </html>
