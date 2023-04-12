@@ -368,9 +368,6 @@
                 padding: 0;
             }
             body {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
                 width: 100%;
                 height: 100%;
                 margin: 0;
@@ -381,20 +378,54 @@
                 height: 100%;
             }
             #contentArea {
-                position: relative;
-                flex: 1;
-                text-align: center;
                 display: flex;
+                position: absolute;
+                top: 7%;
+                bottom: 7%;
+                left: 0;
+                width: 100%;
+                height: 86%;
+                text-align: center;
                 transition: transform 1s;
             }
             #left, #right {
-                position: relative;
-                flex: 0 0 7%;
+                position: absolute;
+                width: 100%;
+                height: 7%;
                 padding: 0 0.4em 0 0.4em;
                 background-color: hsl(0, 0%, 90%);
                 border: none;
                 font-size: 1.4em;
                 z-index: 1;
+            }
+            #left {
+                top: 0;
+                left: 0;
+            }
+            #right {
+                bottom: 0;
+                right: 0;
+            }
+            @media (min-width: 64.21875em) {
+                #left, #right {
+                    width: 7%;
+                    height: 100%;
+                }
+                #left {
+                    top: 0;
+                    left: 0;
+                }
+                #right {
+                    bottom: 0;
+                    right: 0;
+                }
+                #contentArea {
+                    top: 0;
+                    bottom: 0;
+                    left: 7%;
+                    width: 86%;
+                    height: 100%;
+                }
             }
             #left:hover, #right:hover {
                 cursor: pointer;
@@ -411,6 +442,7 @@
             }
             .invisible {
                 opacity: 0 !important;
+                cursor: default !important;
             }
         </style>
     </head>
@@ -424,32 +456,48 @@
                 <p>Additional link to a Powerpoint version:</p>
             </div>
             <div class="slide">
-                <h1>Textbox Animation - Art</h1>
+                <h1>Textbox Animation - Animation 218</h1>
+                <video width="80%" height="80%" controls>
+                    <source src="./assets/HenschelJansen_OutOfTheBoxAssignment_v8_2.mp4" type="video/mp4">
+                </video>
             </div>
             <div class="slide">
                 <h1>Egyptian Tomb - GAD 103</h1>
+                <video width="80%" height="80%" controls>
+                    <source src="./assets/Egyptian Tomb w_ Sarcophagus Cinematic.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="slide">
+                <h1>Stop Motion Cards - Animation 218</h1>
+                <video width="80%" height="80%" controls>
+                    <source src="./assets/HenschelJansen_StopMotionAssignment_Cropped.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="slide">
+                <h1>Magic Mac Intro - Art 648</h1>
+                <video width="80%" height="80%" controls>
+                    <source src="./assets/JansenHenschel_TitleSequence_v5_1.mp4" type="video/mp4">
+                </video>
             </div>
         </main>
         <button id="right" type="button">Right</button>
         <script>
+            let transitioning = false;
             let slides = document.querySelectorAll(".slide");
             let slideIndex = 0;
             let contentArea = document.getElementById("contentArea");
             let leftButton = document.getElementById("left");
             let rightButton = document.getElementById("right");
 
+            contentArea.addEventListener("transitionend", function(e) {
+                transitioning = false;
+                if (slides[slideIndex].querySelector("video")) {
+                    slides[slideIndex].querySelector("video").play();
+                }
+            });
+
             function updateSlide(newSlideIndex) {
                 contentArea.style.transform = "translateX(-"+newSlideIndex*100+"%)";
-                /*slides.forEach(slide => slide.classList.add("invisible"));
-                slides[newSlideIndex].classList.remove("invisible");*/
-                /*let transitionToNew = contentArea.animate([
-                    {transform: "translateX(0%)", opacity: 1},
-                    {transform: "translateX(-100%)", opacity: 0, offset: 0.33},
-                    {transform: "translateX(100%)", opacity: 0, offset: 0.66},
-                    {transform: "translateX(0%)", opacity: 1}
-                ], {
-                    duration: 500
-                });*/
 
                 if (newSlideIndex <= 0) {
                     leftButton.classList.add("invisible");
@@ -464,12 +512,43 @@
             }
 
             leftButton.addEventListener("click", function(e) {
-                if (slideIndex > 0) updateSlide(--slideIndex);
-                
+                if (transitioning) return;
+                if (slideIndex > 0) {
+                    if (slides[slideIndex].querySelector("video")) {
+                        slides[slideIndex].querySelector("video").pause();
+                    }
+                    transitioning = true;
+                    updateSlide(--slideIndex);
+                }
             });
             rightButton.addEventListener("click", function(e) {
-                if (slideIndex < slides.length-1) updateSlide(++slideIndex);
+                if (transitioning) return;
+                if (slideIndex < slides.length-1) {
+                    if (slides[slideIndex].querySelector("video")) {
+                        slides[slideIndex].querySelector("video").pause();
+                    }
+                    transitioning = true;
+                    updateSlide(++slideIndex);
+                }
             });
+
+            setInterval(function(e) {
+                if (transitioning) return;
+                if (slideIndex < slides.length-1) {
+                    transitioning = true;
+                    if (slides[slideIndex].querySelector("video")) {
+                        slides[slideIndex].querySelector("video").pause();
+                    }
+                    updateSlide(++slideIndex);
+                } else {
+                    if (slides[slideIndex].querySelector("video")) {
+                        slides[slideIndex].querySelector("video").pause();
+                    }
+                    slideIndex = 0;
+                    transitioning = true;
+                    updateSlide(slideIndex);
+                }
+            }, 15000);
         </script>
     </body>
 </html>
