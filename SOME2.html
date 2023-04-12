@@ -35,8 +35,10 @@
 		<p>This is the question that we're going to answer today, through the perspective of
 			continuous functions and differentiable functions.</p>
 		<h2>Continuity and Differentiability</h2>
-		<p>(fill in explanation of differentiability here)
-			The function \( |x| \) is not differentiable at \( x=0 \).</p>
+		<p>(fill in explanation of differentiability here)</p>
+		<p>Think about differentiability as the property that as you zoom in on
+			a function, it looks more and more like a straight line.</p>
+		<p>The function \( |x| \) is not differentiable at \( x=0 \).</p>
 		<p>So certainly, we are able to find continuous functions that are non-differentiable at
 			certain points. But how far can we go? Is it true that a continuous function is always
 			differentiable at an infinite number of points? Contrary to the intuitions of most
@@ -53,20 +55,148 @@
 		<p>Now let's define the function \( f(x) \) such that \( f(x) = x\sin(1/x) \) at \( x \neq 0 \) and \( f(x) = 0 \) at \( x = 0 \).
 			When graphed, it looks like this:</p>
 		<p>As you zoom in on this function at \( x=0 \), it oscillates infinitely just the same as before,
-			but we now see that that these oscillations become smaller and smaller as \( x -> 0 \).</p>
-		<p>In other words, \( x\sin(1/x) \) actually tends towards a defined value as \( x -> 0 \).</p>
+			but we now see that that these oscillations become smaller and smaller as \( x \to 0 \).</p>
+		<p>In other words, \( x\sin(1/x) \) actually tends towards a defined value as \( x \to 0 \).</p>
 		<p>The idea is this: we construct a function \( g(x) \) that oscillates infinitely at every point,
 			but we have the oscillations shrink at just the right speed so that \( g(x) \) is defined and continuous at every point.</p>
 		<p>So how do we go about doing this? Well, the answer is rather simple. We use an infinite sum
 			of oscillating functions.</p>
 		<p>There are several oscillating functions we could use to construct our function,
 			some with proofs easier than others.</p>
-		<p>To simplify the argument, consider the periodic function \( h(x) \) defined to be \( |x| \)
-			over the interval \( [-1, 1] \):</p>
-		<p>This is called the <strong>triangle wave function</strong>.</p>
+		<p>To simplify the argument, consider the periodic function \( h(x) \) defined to be \( dist(x, Z) \):</p>
+		<p>This is called a <strong>triangle wave function</strong>.</p>
 		<p>Notice that the function \( h_n(x) = \frac{1}{2^n}h(2^nx) \) is essentially a scaled down version of \( h(x) \):</p>
 		<p>Now consider the function \( g(x) \) defined to be \( \sum_{n=0}^{\infty} h_n(x) = \sum_{n=0}^{\infty} \frac{1}{2^n}h(2^nx) \).</p>
 		<p>I claim that \( g(x) \) is defined for all x, continuous for all x, and non-differentiable for all x.</p>
-		<iframe src="https://www.desmos.com/calculator/pla3ufqqdy"></iframe>
+		<p>\( g(x) \) and variations of \( g(x) \) are referred to as "Takagi's Function."</p>
+		<p>First of all, \( h(x) \leq 1 \) for all \( x \).</p>
+		<p>Thus
+			\[ \sum_{n=0}^{\infty} \left| \frac{1}{2^n}h(2^nx) \right| \leq \sum_{n=0}^{\infty} \left| \frac{1}{2^n} \right| = 1 \]</p>
+		<p>From the Weierstrass M-Test, we see that \( g(x) \) is defined and continuous for all x.</p>
+		<p>Now we have to prove that it is non-differentiable.
+			Because of our choice of \( h(x) \), this is not too hard.</p>
+		<p>We need the lemma that if \( a_n \to x, b_n \to x \) and \( a_n <= x <= b_n \),
+			then \( f'(x) = \lim_{n\to\infty} \frac{f(b_n) - f(a_n)}{b_n - a_n} \).</p>
+		<p>Note that for any \( p/2^n \), \( h_n(p/2^n) = 0 \).
+			This means that \( g(p/2^n) = \sum_{k=0}^{k-1} \frac{1}{2^k}h(2^kp/2^n) \).</p>
+		<p>This is vital to the proof.</p>
+		<p>Numbers of the form \( p/2^n \) are called <strong>dyadic rationals</strong>.</p>
+		<p>Now, for any \( x \) and any choice of \( n \), we have two dyadic rationals \( a_n = p_n/2^n \) and \( b_n = q_n/2^n \)
+			such that \( |a_n - b_n| = 2^{-n} \) and \( a_n <= x < b_n \).</p>
+		<p>Then \[ g'(x) = \lim_{n\to\infty} \frac{g(b_n) - g(a_n)}{b_n - a_n} =
+			\lim_{n\to\infty} \sum_{k=0}^{n-1} \frac{h_k(b_n) - h_k(a_n)}{b_n - a_n} \]</p>
+		<p>Now note that \( h_k(x) \) is linear on \( [a_n, b_n] \) for \( k < n \)
+			and that \( \frac{h_k(b_n) - h_k(a_n)}{b_n - a_n} \) is just the slope of this line.</p>
+		<p>Also note that the slope of \( h_k(x) \) on \( [a_n, b_n] \)
+			alternates between \( 1 \) and \( -1 \) as \( k \) increases.</p>
+		<p>Then \( g'(x) = \lim_{n\to\infty} \sum_{k=0}^{n} \pm1 = \sum_{k=0}^{\infty} \pm1 \) which does not converge,
+			so \( g'(x) \) doesn't exist.</p>
+		<p>Note how the graph of \( g(x) \) is very fractal-like.
+			It has the same self-similarity property as you zoom in that
+			fractals are often known for.</p>
+		<p>This self-similarity property prevents the Takagi function from being differentiable.
+			Instead of approximating a straight line as you zoom in,
+			\( g(x) \) just looks like itself.</p>
+		<h2>The Weierstrass Function</h2>
+		<p>The Weierstrass function is similar to the Takagi function,
+			except instead of using a triangle wave as our oscillating function,
+			we use \( \cos(x) \) as our oscillator.</p>
+		<p>The proof that this function can be made to be nondifferentiable is trickier
+			than the one for Takagi's function, but the intuition as to why it is nondifferentiable
+			is essentially the same.</p>
+		<p>Take \( g(x) = \sum_{n=0}^{\infty} a^n\cos(b^nx\pi) \).</p>
+		<p>Now we construct a sequence \( x_m \).</p>
+		<p>Round \( b^mx \) to the nearest integer \( \alpha_m \).
+			Then \( b^mx = \alpha_m + e_m \) where \( e_m \in [-1/2, 1/2] \).</p>
+		<p>Now take \[ x_m = \frac{\alpha_m + 1}{b^m} = \frac{b^mx - e_m + 1}{b^m}
+			= x + \frac{1 - e_m}{b^m} \] where \( 1 - e_m \geq 0 \).</p>
+		<p>The idea behind this proof is to split the infinite sum of difference quotients
+			into two parts: the sum up to m, and the sum after m.</p>
+		<p>\[ g'(x) = \lim_{m\to\infty} \frac{g(x_m)-g(x)}{x_m-x} =
+			\sum_{n=0}^{\infty} a^n\frac{\cos(b^nx_m\pi)-\cos(b^nx\pi)}{x_m-x} \]</p>
+		<p>\[ =
+			\sum_{n=0}^{m-1} a^n\frac{\cos(b^nx_m\pi)-\cos(b^nx\pi)}{x_m-x} +
+			\sum_{n=m}^{\infty} a^n\frac{\cos(b^nx_m\pi)-\cos(b^nx\pi)}{x_m-x}\]</p>
+		<p>Now we begin simplifying these sums.
+			Label the first term \( S_1 \) and the second term \( S_2 \).
+			We'll start with the \( S_2 \) first.</p>
+		<p>Relabel n = k+m, where k starts at 0.</p>
+		<p>Then we have \[ \sum_{k=0}^{\infty} a^{k+m}\frac{\cos(b^{k+m}x_m\pi)-\cos(b^{k+m}x\pi)}{x_m-x} \].</p>
+		<p>Using the defintion for \( x_m \),
+			we have that \[ \cos(b^{k+m}x_m\pi) = \cos(b^k(\alpha_m + 1)\pi \].</p>
+		<p>\( \cos(x) \) is always -1 or 1 on any integer multiple of \( \pi \).
+			Specifically, it is 1 on even multiples of \( \pi \)
+			and -1 on odd multiples of \( pi \).</p>
+		<p>Since \( b^k \) is an odd integer and \( \alpha_m + 1\) is an integer,
+			\( \cos(x) = 1 \) when \( \alpha_m + 1 \) is even and
+			\( \cos(x) = -1 \) when \( \alpha_m + 1 \) is odd.</p>
+		<p>Giving an exact formula, \( \cos(b^k(\alpha_m + 1)\pi) = (-1)(-1)^{\alpha_m} \).</p>
+		<p>Now remember that \( x = \frac{\alpha_m + e_m}{b^m} \),
+			so \[ \cos(b^{k+m}x\pi) = \cos(b^k\alpha_m\pi - b^ke_m\pi) \].</p>
+		<p>Now use the subtraction formula for cosine:
+			\[ \cos(b^k\alpha_m\pi - b^ke_m\pi) =
+				\cos(b^k\alpha_m\pi)\cos(b^ke_m\pi) +
+				\sin(b^k\alpha_m\pi)\sin(b^ke_m\pi) \].</p>
+		<p>Now this looks like a bigger mess than what we had before, but notice:
+			\( b^k\alpha_m\pi \) is an integer multiple of \( \pi \).
+			But \( \sin(x) \) is 0 on all integer multiples of \( pi \).</p>
+		<p>Thus,
+			\[ \cos(b^k\alpha_m\pi)\cos(b^ke_m\pi) +
+				\sin(b^k\alpha_m\pi)\sin(b^ke_m\pi) = \]
+			\[ \cos(b^k\alpha_m\pi)\cos(b^ke_m\pi) = \]
+			\[ (-1)^{\alpha_m}\cos(b^ke_m\pi) \]
+			by the same logic as before.</p>
+		<p>Now we have
+			\[ \sum_{k=0}^{\infty} a^{k+m}\frac{\cos(b^{k+m}x_m\pi)-\cos(b^{k+m}x\pi)}{x_m-x} \]
+			\[ = \sum_{k=0}^{\infty} a^{k+m}\frac{(-1)(-1)^{\alpha_m} - (-1)^{\alpha_m}\cos(b^ke_m\pi)}{x_m-x} \]
+			\[ = (-1)(-1)^{\alpha_m}a^m \sum_{k=0}^{\infty} a^k\frac{1 + \cos(b^ke_m\pi)}{x_m-x} \].</p>
+		<p>Finally, \( x_m - x = \frac{1-e_m}{b_m} \),
+			so \[ (-1)(-1)^{\alpha_m}a^m \sum_{k=0}^{\infty} a^k\frac{1 + \cos(b^ke_m\pi)}{x_m-x} \]
+			\[ = (-1)(-1)^{\alpha_m}(ab)^m \sum_{k=0}^{\infty} a^k\frac{1 + \cos(b^ke_m\pi)}{1-e_m} \].</p>
+		<p>Now, \( a^k > 0 \), \( 1-e_m > 0 \) because \( e_m \in [-1/2, 1/2] \),
+			and \( 1 + \cos(b^ke_m\pi) >= 0 \) because \( \cos(x) \in [-1,1] \).</p>
+		<p>Thus all the terms in this series are positive, so the series is bounded below
+			by its first term.</p>
+		<p>That first term is
+			\[ (-1)(-1)^{\alpha_m}(ab)^m \frac{1 + \cos(e_m\pi)}{1-e_m} \].</p>
+		<p>Because \( e_m \in [-1/2, 1/2] \), \( e_m\pi \in [-\pi/2, \pi/2] \)
+			so \( \cos(e_m\pi) >= 0 \), and thus \( 1 + \cos(e_m\pi) >= 1 \).</p>
+		<p>In addition, \( \frac{1}{1-e_m} >= \frac{1}{1+1/2} = \frac{1}{3/2} = \frac{2}{3} \).</p>
+		<p>Thus
+			\[ \left|(-1)(-1)^{\alpha_m}(ab)^m \frac{1 + \cos(e_m\pi)}{1-e_m}\right| \]
+			\[ >= (ab)^m \frac{2}{3} \], so this is an upper bound for \( S_2 \).</p>
+		<p>Now for \( S_1 \)!</p>
+		<p>We want to find an upper bound for
+			\[ \sum_{n=0}^{m-1} a^n\frac{\cos(b^nx_m\pi)-\cos(b^nx\pi)}{x_m-x} \]</p>
+		<p>First we multiply the terms by \( \frac{b_n\pi}{b_n\pi} \), so our sum becomes:
+			\[ \sum_{n=0}^{m-1} (ab)^n\pi\frac{\cos(b^nx_m\pi)-\cos(b^nx\pi)}{b_nx_m\pi-b_nx\pi} \]</p>
+		<p>Here's a handy trick: by the Mean Value Theorem, in any interval \( [a,b] \)
+			there exists a point \( c \) such that \( f'(c) = \frac{f(b) - f(a)}{b-a} \).</p>
+		<p>Now apply this theorem to the function \( \cos(x) \) on the interval \( [b_nx\pi, b_nx_m\pi] \).</p>
+		<p>Then there exists \( c \) such that \( -\sin(c) = \frac{\cos(b_nx_m\pi) - \cos(b_nx\pi)}{b_nx_m\pi-b_nx\pi} \).</p>
+		<p>But that means \( \left|\frac{\cos(b_nx_m\pi) - \cos(b_nx\pi)}{b_nx_m\pi-b_nx\pi}\right| <= 1 \)
+			because \( -\sin(x) \in [-1, 1] \).</p>
+		<p>So
+			\[ \left|\sum_{n=0}^{m-1} (ab)^n\pi\frac{\cos(b^nx_m\pi)-\cos(b^nx\pi)}{b_nx_m\pi-b_nx\pi}\right| \]
+			\[ <= \sum_{n=0}^{m-1} (ab)^n\pi \]
+			\[ = \pi\frac{(ab)^m - 1}{ab - 1} \]
+			\[ <= \pi\frac{(ab)^m}{ab - 1} \]</p>
+		<p>After all of this, we have that \( \left| S_1 \right| <= \frac{\pi(ab)^m}{ab - 1} \)
+			and \( \left| S_2 \right| >= \frac{2(ab)^m}{3} \).</p>
+		<p>So \( (ab)^{-m}S_1 \) is in the interval \( [-\frac{\pi}{ab-1},\frac{\pi}{ab-1}] \)
+			and \( (ab)^{-m}S_2 \) is outside of the interval \( (-\frac{2}{3},\frac{2}{3}) \).</p>
+		<p>Select a and b such that \( \frac{\pi}{ab-1} < \frac{2}{3} \).
+			Then \( \left| (ab)^{-m}S_1 + (ab)^{-m}S_2 \right| >= \frac{2}{3} - \frac{\pi}{ab-1} \).</p>
+		<p>Now! Remember that our derivative \( = S_1 + S_2 \).</p>
+		<p>If
+			\[ \left| (ab)^{-m}S_1 + (ab)^{-m}S_2 \right| = \left| \frac{S_1 + S_2}{(ab)^m} \right|
+				>= \frac{2}{3} - \frac{\pi}{ab-1} \]
+			then that means \( \left| \frac{S_1 + S_2}{(ab)^m} \right| \) does not go to 0 as m increases.</p>
+		<p>But that means that \( S_1 + S_2 \) grows as (ab)^m grows, so it must go to \( \infty \).</p>
+		<p>If we instead have \( x_m = \frac{\alpha_m - 1}{b^m} \),
+			going through the same proof again shows that \( S_1 + S_2 \) goes to \( -\infty \).</p>
+		<p>Thus the derivative at \( x \) is not defined. Q.E.D.</p>
+		<iframe src="https://www.desmos.com/calculator/uo6wbat52i?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+		<iframe src="https://www.desmos.com/calculator/m2z0soh7qa?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
 	</body>
 </html>
