@@ -489,6 +489,77 @@
                 </video>
             </div>
             <div class="slide">
+                <h1>Cyberwarfare Game (1/2) - GAD 101</h1>
+                <!--<p>YT Link + QR Code: <a href="https://youtu.be/vxpSaOqLuAY">https://youtu.be/vxpSaOqLuAY</a> + <img style="max-width: 10ch" src="./assets/qrcodes/magicmack-qrcode.png"></p>-->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; width: 80%; height: 80%; margin: 0 auto;">
+                    <div id="cyberwarfareInstructions" style="width: 100%; height: 100%; text-align: left; overflow-y: scroll; font-family: OCR-2, Courier New, serif;">
+                        <h2>Theme: Cyberwarfare</h2>
+                        <h2>Players: </h2>
+                        <p>4+, preferably 5 or more</p>
+                        <h2>Setup: </h2>
+                        <ul>
+                            <li>Deck of Action cards</li>
+                            <li>Deck of 13 Scenario cards</li>
+                            <li>45 second timer ⏲</li>
+                            <li>Deck of standard playing cards w/ a Joker card</li>
+                        </ul>
+                        <h2>Objective: </h2>
+                        <p>The enemy state wins if they complete 7 out of the 13 total objectives or they arrest the hacker</p>
+                        <p>The hacker wins if they have all 9 types of action cards in their hard or if there is only one other person left</p>
+                        <h2>Rules: </h2>
+                        <p>At the start of the game, the “hacker” is selected.</p>
+                        <p>If the game has N players, N playing cards are drawn out of a playing card deck, one of these being the Joker card.</p>
+                        <p>Each player is given one of these cards and whoever draws the Joker is designated the hacker.</p>
+                        <p>Every other player is designated the “enemy state.”</p>
+                        <p>These cards are not needed for any other stage of gameplay, they are only needed to verify who the hacker is at the end of the game.</p>
+
+                        <br>
+
+                        <p>Every turn each player draws one action card from the Actions pile and adds it to their hand.</p>
+                        <p>Then, the players draw a scenario card from the Scenario pile</p>
+                        <p>Each scenario requires 4 action cards to complete.</p>
+                        <p>Each player is not allowed to show their action cards but they are allowed to talk about their action cards.</p>
+                        <p>The hacker can lie about their action cards.</p>
+
+                        <br>
+
+                        <p>Each player can choose to put down as many <strong>facedown</strong> cards into the center pile as they want to contribute to the objective.</p>
+                        <p>On every turn, at least one player is required to place down 1 card.</p>
+                        <p>The players, in total, can put down a maximum of 6 cards.</p>
+                        <p>If a specific type of action card is already in the center pile it is not allowed to be placed again (no duplicates).</p>
+                        <p>The hacker can ignore the “no duplicates” rule and can place down a duplicate card.</p>
+                        <p>Cards in the center pile are not discarded when a turn ends.</p>
+                        
+                        <br>
+
+                        <p>Then, everyone closes their eyes.</p>
+                        <p>The hacker can then steal one card and put it in their hand or swap out a card in the center pile with a card in their hand. They can also swap in a duplicate type of action card if they choose.</p>
+                        <p>The hacker can look at all the cards face up while deciding what to do.</p>
+                        <p>They have 45 seconds to finish making their move before the timer goes off.</p>
+                        
+                        <br>
+                        
+                        <p>Then, the cards in the center pile are all turned face up.</p>
+                        <p>If the center pile has the four cards required to complete the objective, those four cards can be used to complete that objective and they are removed from the center pile.</p>
+                        <p>Finally, the scenario card on the table is placed into a separate discard pile.</p>
+                        
+                        <br>
+                        
+                        <p>At any point players can choose, via strict majority vote, to arrest who they think the hacker is.</p>
+                        <p>When someone is accused, everyone <strong>including the accused</strong> votes yay or nay.</p>
+                        <p>If a strict majority of the players vote yay, the accused is arrested and must leave the game.</p>
+                    </div>
+                    <img style="width: 100%;" src="./assets/CyberwarfarePicture1.jpg">
+                </div>
+            </div>
+            <div class="slide">
+                <h1>Cyberwarfare Game (2/2) - GAD 101</h1>
+                <!--<p>YT Link + QR Code: <a href="https://youtu.be/vxpSaOqLuAY">https://youtu.be/vxpSaOqLuAY</a> + <img style="max-width: 10ch" src="./assets/qrcodes/magicmack-qrcode.png"></p>-->
+                <video width="80%" height="70%" controls muted>
+                    <source src="./assets/IMG_8440.MOV" type="video/mp4">
+                </video>
+            </div>
+            <div class="slide">
                 <h1>Magic Mack Intro - Art 648</h1>
                 <p>YT Link + QR Code: <a href="https://youtu.be/vxpSaOqLuAY">https://youtu.be/vxpSaOqLuAY</a> + <img style="max-width: 10ch" src="./assets/qrcodes/magicmack-qrcode.png"></p>
                 <video width="80%" height="70%" controls muted>
@@ -498,13 +569,28 @@
         </main>
         <button id="right" type="button">Right</button>
         <script>
+            let onCyberwarfareText = false;
+            let debugPause = false;
             let transitioning = false;
+            let scrolling = false;
             let playing = false;
             let slides = document.querySelectorAll(".slide");
             let slideIndex = 0;
             let contentArea = document.getElementById("contentArea");
             let leftButton = document.getElementById("left");
             let rightButton = document.getElementById("right");
+
+            function smoothToBottom(el, millis) {
+                scrolling = true;
+                let interval = millis / ((el.scrollHeight - el.clientHeight) / 5);
+                // change the time to make the ani go faster or slower
+                if (el.scrollTop < el.scrollHeight - el.clientHeight) {
+                    el.scrollBy(0, 5);
+                    setTimeout((e) => requestAnimationFrame((e)=>smoothToBottom(el)), interval);
+                } else {
+                    scrolling = false;
+                }
+            }
 
             function setPlaying() {
                 playing = true;
@@ -520,6 +606,12 @@
                     video.currentTime = 0;
                     video.play();
                     playing = true;
+                }
+
+                if (slides[slideIndex].querySelector("#cyberwarfareInstructions")) {
+                    smoothToBottom(slides[slideIndex].querySelector("#cyberwarfareInstructions"), 20000);
+                } else {
+                    document.querySelector("#cyberwarfareInstructions").scrollTop = 0;
                 }
             });
 
@@ -576,7 +668,12 @@
             });
 
             setInterval(function(e) {
-                if (transitioning || playing) return;
+                if (onCyberwarfareText) {
+                    onCyberwarfareText = false;
+                    return;
+                }
+                if (debugPause) return;
+                if (transitioning || playing || scrolling) return;
                 if (slideIndex < slides.length-1) {
                     transitioning = true;
                     if (slides[slideIndex].querySelector("video")) {
