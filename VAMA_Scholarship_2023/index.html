@@ -549,12 +549,16 @@
                         <p>When someone is accused, everyone <strong>including the accused</strong> votes yay or nay.</p>
                         <p>If a strict majority of the players vote yay, the accused is arrested and must leave the game.</p>
                     </div>
-                    <img style="width: 100%;" src="./assets/CyberwarfarePicture1.jpg">
+                    <div id="cyberwarfarePhotos" style="width: 100%; height: 100%; overflow-y: scroll">
+                        <img style="width: 100%;" src="./assets/IMG_8429.JPG">
+                        <img style="width: 100%;" src="./assets/IMG_8446.JPG">
+                        <img style="width: 100%;" src="./assets/IMG_8447.JPG">
+                    </div>
                 </div>
             </div>
             <div class="slide">
                 <h1>Cyberwarfare Game (2/2) - GAD 101</h1>
-                <!--<p>YT Link + QR Code: <a href="https://youtu.be/vxpSaOqLuAY">https://youtu.be/vxpSaOqLuAY</a> + <img style="max-width: 10ch" src="./assets/qrcodes/magicmack-qrcode.png"></p>-->
+                <p>YT Link + QR Code: <a href="https://youtu.be/pIN4KGLox_U">https://youtu.be/pIN4KGLox_U</a> + <img style="max-width: 10ch" src="./assets/qrcodes/cyberwarfare1-qrcode.png"></p>
                 <video width="80%" height="70%" controls muted>
                     <source src="./assets/IMG_8440.MOV" type="video/mp4">
                 </video>
@@ -570,7 +574,7 @@
         <button id="right" type="button">Right</button>
         <script>
             let onCyberwarfareText = false;
-            let debugPause = false;
+            let debugPause = true;
             let transitioning = false;
             let scrolling = false;
             let playing = false;
@@ -610,7 +614,7 @@
 
                 if (slides[slideIndex].querySelector("#cyberwarfareInstructions")) {
                     scrolling = true;
-                    smoothToBottom(slides[slideIndex].querySelector("#cyberwarfareInstructions"), 20000);
+                    smoothToBottom(slides[slideIndex].querySelector("#cyberwarfareInstructions"), 30000);
                 }
             });
 
