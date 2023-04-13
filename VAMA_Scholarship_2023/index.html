@@ -581,7 +581,7 @@
             let rightButton = document.getElementById("right");
 
             function smoothToBottom(el, millis) {
-                scrolling = true;
+                if (!scrolling) return;
                 let interval = millis / ((el.scrollHeight - el.clientHeight) / 5);
                 // change the time to make the ani go faster or slower
                 if (el.scrollTop < el.scrollHeight - el.clientHeight) {
@@ -609,9 +609,8 @@
                 }
 
                 if (slides[slideIndex].querySelector("#cyberwarfareInstructions")) {
+                    scrolling = true;
                     smoothToBottom(slides[slideIndex].querySelector("#cyberwarfareInstructions"), 20000);
-                } else {
-                    document.querySelector("#cyberwarfareInstructions").scrollTop = 0;
                 }
             });
 
@@ -634,6 +633,8 @@
                 } else {
                     rightButton.classList.remove("invisible");
                 }
+                document.querySelector("#cyberwarfareInstructions").scrollTop = 0;
+                scrolling = false;
             }
 
             leftButton.addEventListener("click", function(e) {
