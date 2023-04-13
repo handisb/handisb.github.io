@@ -459,12 +459,13 @@
                 <br>
                 <img style="max-width: 50%; max-height: 50%" src="./assets/qrcodes/scholarship-qrcode.png">
             </div>
-            <div class="slide">
+            <div class="slide" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                 <h1>Textbox Animation - Animation 218</h1>
-                <p>YT Link + QR Code: <a href="https://youtu.be/xf3qnx3ijJY">https://youtu.be/xf3qnx3ijJY</a> + <img style="max-width: 10ch" src="./assets/qrcodes/textbox-qrcode.png"></p>
+                <p>YT Link + QR Code: <a href="https://youtu.be/xf3qnx3ijJY">https://youtu.be/xf3qnx3ijJY</a></p>
                 <video width="80%" height="70%" controls muted>
                     <source src="./assets/HenschelJansen_OutOfTheBoxAssignment_v8_2.mp4" type="video/mp4">
                 </video>
+                <p><img style="max-height: 10ch;" src="./assets/qrcodes/textbox-qrcode.png"></p>
             </div>
             <div class="slide">
                 <h1>Egyptian Tomb - GAD 103</h1>
@@ -574,7 +575,7 @@
         <button id="right" type="button">Right</button>
         <script>
             let onCyberwarfareText = false;
-            let debugPause = false;
+            let debugPause = true;
             let transitioning = false;
             let scrolling = false;
             let playing = false;
@@ -591,7 +592,7 @@
                 if (el.scrollTop < el.scrollHeight - el.clientHeight) {
                     el.scrollBy(0, 5);
                     setTimeout((e) => requestAnimationFrame((e)=>smoothToBottom(el)), interval);
-                } else {
+                } else { "slowdownscroll,"
                     scrolling = false;
                 }
             }
@@ -614,7 +615,7 @@
 
                 if (slides[slideIndex].querySelector("#cyberwarfareInstructions")) {
                     scrolling = true;
-                    smoothToBottom(slides[slideIndex].querySelector("#cyberwarfareInstructions"), 30000);
+                    smoothToBottom(slides[slideIndex].querySelector("#cyberwarfareInstructions"), 120000);
                 }
             });
 
